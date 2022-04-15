@@ -1,0 +1,24 @@
+---
+# tasks file for node
+include_vars: secrets.yml
+- name: Install EPEL repository
+  yum:
+    name: epel-release
+    state: present
+- name: Install NodeJS
+  yum: name=nodejs state=present
+- name: Create app directory
+  file:
+    path: "{{ appdir }}"
+    state: directory
+- name: Upload the server.js file
+  template:
+    src: server.js.j2
+    dest: "{{ appdir }}/server.js"
+- name: Upload api directory and package.json
+  copy:
+    src: "{{ item }}"
+    dest: "{{ appdir }}"
+  with_items:
+    - api
+    - package.json
