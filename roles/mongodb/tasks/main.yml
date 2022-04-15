@@ -25,6 +25,10 @@
   pip:
     name: pymongo
     state: present
+- name: Check if the admin user is already created
+  command: grep "^auth = true" /etc/mongodb.conf
+  register: auth
+
 - name: Add administrator to db
   mongodb_user:
     database: admin
@@ -32,6 +36,8 @@
     password: "{{ dbpass }}"
     roles: root
     state: present
+  when: auth.rc == 1
+  
 - name: Enable auth
   lineinfile:
     path: /etc/mongodb.conf
