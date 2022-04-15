@@ -3,3 +3,13 @@
   become: true
   roles:
     - mongodb
+
+- hosts: app
+  become: yes
+  roles:
+    - node
+
+- hosts: web
+  become: true
+  roles:
+    - nginx

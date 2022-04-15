@@ -1,0 +1,5 @@
+---
+# vars file for nginx
+web_port: 80
+app_host: "24.235.63.21"
+app_port: 3000
