@@ -45,3 +45,16 @@
     regexp: '#?auth \= true'
     line: 'auth = true'
   notify: restart mongodb
+- name: Create the app user
+  mongodb_user:
+    login_user: root
+    login_password: "{{ dbpass }}"
+    name: "{{ appdbuser }}"
+    password: "{{ appdbpass }}"
+    database: "{{ dbname }}"
+    roles: dbOwner
+    state: present
+- name: Stop firewall to allow outside connection
+  service:
+    name: ufw
+    state: stopped

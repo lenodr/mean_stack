@@ -1,3 +1,4 @@
 ---
 # vars file for mongodb
 # ansible-vault encrypt secrets.yml
+# vim ~/.mypass --- ansible-playbook -i hosts --vault-id ~/.mypass
