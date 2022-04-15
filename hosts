@@ -1,0 +1,8 @@
+[db]
+ubuntu-mongodb ansible_user=root
+
+[web]
+ubuntu-web ansible_user=root
+
+[app]
+ubuntu-app ansible_user=root
