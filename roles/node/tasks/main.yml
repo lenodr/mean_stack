@@ -22,3 +22,26 @@ include_vars: secrets.yml
   with_items:
     - api
     - package.json
+- name: run npm with package.json
+  npm:
+    path: "{{ appdir }}"
+    executable: /usr/bin/npm
+    state: present
+- name: Make server.js executable
+  file:
+    path: "{{ appdir }}/server.js"
+    mode: 0755
+- name: Install nodejs service
+  template:
+    src: node.service.j2
+    dest: /etc/systemd/system/node.service
+- name: Start and enable nodeJs
+  service:
+    name: node
+    state: started
+    enabled: true
+- name: Stop Firewall to allow outside connections
+  service:
+    name: firewalld
+    state: stopped
+    
